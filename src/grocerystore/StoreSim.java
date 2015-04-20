@@ -2,12 +2,13 @@ package grocerystore;
 
 public class StoreSim {
 	static PQ agenda = new PQ();
-	static Shopper shopper;
-	static Checker checker;
-	static Checker[] carray;
+	static ShopperMaker shoppermaker;
+	static Checker checker1;
+	static Checker[] checkers;
 	
 	public static void main(String args[]){
-		carray = new Checker[10];
+		checkers = new Checker[4];
+		
 		
 		
 	}

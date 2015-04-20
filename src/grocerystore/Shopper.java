@@ -1,5 +1,4 @@
 package grocerystore;
-
+//new shopper class
 public class Shopper {
-	//testchange3
 }

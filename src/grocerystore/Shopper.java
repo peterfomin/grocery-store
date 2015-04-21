@@ -3,7 +3,7 @@ package grocerystore;
 //new comment peter local
 
 public class Shopper {
-	private double arrivaltime = 0;
+	private double arrivaltime = 1;
 	private int items = 0;
 
 	public Shopper(double time, int items) {

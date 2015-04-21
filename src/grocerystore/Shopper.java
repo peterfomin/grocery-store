@@ -3,6 +3,7 @@ package grocerystore;
 //new shopper class
 
 public class Shopper {
+	//random comment
 	private double arrivaltime = 0;
 	private int items = 0;
 

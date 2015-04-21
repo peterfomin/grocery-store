@@ -1,6 +1,6 @@
 package grocerystore;
 
-//new shopper class
+//new comment peter local
 
 public class Shopper {
 	//random comment
@@ -13,5 +13,17 @@ public class Shopper {
 
 		// add to available checker's queue
 		StoreSim.addToChecker(this);
+	}
+	public void setArrivalTime(double arrivaltime){
+		this.arrivaltime = arrivaltime;
+	}
+	public void setItems(int items){
+		this.items = items;
+	}
+	public double getArrivalTime(){
+		return this.arrivaltime;
+	}
+	public int getItems(){
+		return this.items;
 	}
 }

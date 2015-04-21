@@ -4,7 +4,7 @@ package grocerystore;
 
 public class Shopper {
 	//random comment
-	private double arrivaltime = 0;
+	private double arrivaltime = 2;
 	private int items = 0;
 
 	public Shopper(double time, int items) {

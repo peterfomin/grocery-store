@@ -11,8 +11,7 @@ public class Shopper {
 		this.arrivaltime = time;
 		this.items = items;
 
-		// add to available checker's queue
-		StoreSim.addToChecker(this);
+		
 	}
 	public void setArrivalTime(double arrivaltime){
 		this.arrivaltime = arrivaltime;

@@ -1,25 +1,46 @@
 package grocerystore;
 
+import java.util.Random;
+
 public class ShopperMaker implements Event {
 	
-	public int interval;
-	public int groceries;
+	public double interval;
 	
-	public ShopperMaker(int intval, int g){
+	public ShopperMaker(double intval){
 		this.interval = intval;
-		this.groceries = g;
 	}
 	//change interval
-	private int RandomArrival(int low, int high){
-		return (int) Math.floor((high - low) * Math.random() + low + 0.5);
+	private double RandomArrival(){
+		Random random = new Random();
+		int selection = random.nextInt(100);
+		if((selection >= 0)&&(selection < 10)){
+			return interval + (0.75 * interval);
+		}else if((selection >= 10)&&(selection < 25)){
+			return interval + (0.50 * interval);
+		}else if((selection >= 25)&&(selection < 45)){
+			return interval + (0.20 * interval);
+		}else if((selection >= 45)&&(selection < 55)){
+			return interval;
+		}else if((selection >= 55)&&(selection < 75)){
+			return interval - (0.20 * interval);
+		}else if((selection >= 75)&&(selection < 90)){
+			return interval - (0.50 * interval);
+		}else if((selection >= 90)&&(selection < 100)){
+			return interval - (0.75 * interval);
+		}else{
+			return interval;
+		}
 	}
 	
 	private int RandomItem(){
-		return 9;
+		
 	}
 	
 	public void run(){
-		StoreSim.agenda.add(new ShopperMaker(interval, groceries), RandomArrival(0, 2 * interval));
+		StoreSim.agenda.add(new ShopperMaker(interval), RandomArrival());
 		Shopper newShopper = new Shopper(StoreSim.agenda.getCurrentTime(), RandomItem());
+		// add to available checker's queue
+		StoreSim.addToChecker(newShopper);
 	}
+	
 }

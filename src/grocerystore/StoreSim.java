@@ -21,5 +21,7 @@ public class StoreSim {
 		}
 
 		current.addToWaitline(shopper);
+		if(!current.busy){
+		}
 	}
 }

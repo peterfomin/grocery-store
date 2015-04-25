@@ -2,11 +2,13 @@ package grocerystore;
 
 public class Checker {
 	boolean busy = false;
-	boolean express;
+	int type;
+	int ID;
 	Q1 waitline = new Q1();
 
-	public Checker(boolean e) {
-		express = e;
+	public Checker(int ID, int type) {
+		this.ID = ID;
+		this.type = type;
 	}
 
 	public void addToWaitline(Shopper shopper) {

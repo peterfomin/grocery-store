@@ -10,14 +10,14 @@ public class CheckerEvent implements Event {
 	public void run() {
 		if (checker.hasNext()) {
 			checker.checkout();
-		}else{
+		} else {
 			checker.busy = false;
 		}
 	}
 
 	@Override
 	public String toString() {
-		return String.format("CheckerEvent [checker=%s]", checker.ID);
+		return String.format(super.toString() + "[checker=%s]", checker.ID);
 	}
-	
+
 }

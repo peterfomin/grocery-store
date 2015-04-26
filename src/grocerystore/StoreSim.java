@@ -40,7 +40,7 @@ public class StoreSim {
 		while (agenda.getCurrentTime() <= 15000) {
 			Event event = agenda.remove();
 			System.out.println(agenda.getCurrentTime());
-			System.out.println(event);
+			System.out.println(event.toString());
 			event.run();
 		}
 	}

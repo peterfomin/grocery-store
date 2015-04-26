@@ -5,6 +5,7 @@ import java.util.Random;
 public class ShopperMaker implements Event {
 
 	public double interval;
+	public int ID;
 
 	public ShopperMaker(double intval) {
 		this.interval = intval;
@@ -56,21 +57,23 @@ public class ShopperMaker implements Event {
 		}
 		// finds lowest queue checker, searches express checkers if applicable
 		for (int i = 0; i < StoreSim.checkers.length; i++) {
-			if (StoreSim.checkers[i].waitline.length() < minsize) {
+			if (StoreSim.checkers[i].waitline.length() <= minsize) {
 				if ((!StoreSim.checkers[i].express)
 						|| ((StoreSim.checkers[i].express) && (expressaccess))) {
 					current = StoreSim.checkers[i];
 					minsize = current.waitline.length();
+					this.ID = current.ID;
 				}
 			}
 		}
-		
+
 		// add the shopper to the proper checker queue
 		current.addToWaitline(shopper);
 		// if the checker added to was idle, process next shopper
 		if (!current.isBusy()) {
 			current.checkout();
 		}
+
 	}
 
 	public void run() {
@@ -80,11 +83,12 @@ public class ShopperMaker implements Event {
 				randomItem());
 		// add to available checker's queue
 		addToChecker(newShopper);
+		System.out.println("Added to Checker: " + this.ID);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("ShopperMaker [interval=%s]", interval);
+		return String.format(super.toString() + "[interval=%s, ID=%s]",
+				interval, ID);
 	}
-
 }

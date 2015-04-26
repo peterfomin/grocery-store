@@ -30,4 +30,10 @@ public class Segment {
     public void setNext(Segment nextSegment) {
         next = nextSegment;
     }
+
+	@Override
+	public String toString() {
+		return String.format("Segment [time=%s, q=\n%s]", time, q);
+	}
+    
 }

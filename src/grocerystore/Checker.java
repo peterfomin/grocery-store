@@ -48,9 +48,16 @@ public class Checker {
 			case 1:
 				time = getEmployeeCheckTime(items);
 				break;
+			case 2:
+				time = getShopperCheckTime(items);
+				break;
+			case 3:
+				time = getEmployeeCheckTime(items);
+				break;
 			default:
 				break;
 			}
+			
 			StoreSim.agenda.add(new CheckerEvent(ID), time);
 		}
 	}

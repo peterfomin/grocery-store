@@ -65,8 +65,8 @@ public class ShopperMaker implements Event {
 		// finds lowest queue checker, searches express checkers if applicable
 		for (int i = 0; i < StoreSim.checkers.length; i++) {
 			if (StoreSim.checkers[i].waitline.length() < minsize) {
-				if ((StoreSim.checkers[i].type < 2)
-						|| ((StoreSim.checkers[i].type >= 2) && (expressaccess))) {
+				if ((!StoreSim.checkers[i].express)
+						|| ((StoreSim.checkers[i].express) && (expressaccess))) {
 					current = StoreSim.checkers[i];
 				}
 			}
@@ -90,6 +90,11 @@ public class ShopperMaker implements Event {
 				RandomItem());
 		// add to available checker's queue
 		addToChecker(newShopper);
+	}
+
+	@Override
+	public String toString() {
+		return String.format("ShopperMaker [interval=%s]", interval);
 	}
 
 }

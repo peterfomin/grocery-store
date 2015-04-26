@@ -1,14 +1,17 @@
 package grocerystore;
 
 public class Checker {
-	boolean busy = false;
-	int type;
+	boolean busy;
+	boolean express;
+	boolean employeeBagging;
+
 	int ID;
 	Q1 waitline = new Q1();
 
-	public Checker(int ID, int type) {
+	public Checker(int ID, boolean express, boolean employeeBagging) {
 		this.ID = ID;
-		this.type = type;
+		this.express = express;
+		this.employeeBagging = employeeBagging;
 	}
 
 	public void addToWaitline(Shopper shopper) {
@@ -41,23 +44,12 @@ public class Checker {
 		if (shopper != null) {
 			int items = shopper.getItems();
 			double time = 0;
-			switch (this.type) {
-			case 0:
-				time = getShopperCheckTime(items);
-				break;
-			case 1:
+			if(employeeBagging){
 				time = getEmployeeCheckTime(items);
-				break;
-			case 2:
+			}else{
 				time = getShopperCheckTime(items);
-				break;
-			case 3:
-				time = getEmployeeCheckTime(items);
-				break;
-			default:
-				break;
 			}
-			
+
 			StoreSim.agenda.add(new CheckerEvent(ID), time);
 		}
 	}

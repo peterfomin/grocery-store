@@ -58,21 +58,31 @@ public class ShopperMaker implements Event {
 	public static void addToChecker(Shopper shopper) {
 		int minsize = StoreSim.checkers[0].waitline.length();
 		Checker current = StoreSim.checkers[0];
+		boolean expressaccess = false;
+		if(shopper.getItems() <= 10){
+			expressaccess = true;
+		}
 		for (int i = 0; i < StoreSim.checkers.length; i++) {
 			if (StoreSim.checkers[i].waitline.length() < minsize) {
+				
 				current = StoreSim.checkers[i];
 			}
 		}
+		boolean wake = false;
+		if(!current.busy){
+			wake = true;
+		}
 		//add the shopper to the proper checker queue
 		current.addToWaitline(shopper);
-		//if the checker added to is idle, wake it
-		if(!current.busy){
+		//if the checker added to was idle, process next shopper
+		if(wake){
+			current.checkout();
 		}
 	}
 
 	public void run() {
 		//reschedule new entry of shopper into system using random interval
-		StoreSim.agenda.add(new ShopperMaker(interval), StoreSim.agenda.getCurrentTime() + RandomArrival());
+		StoreSim.agenda.add(new ShopperMaker(interval), RandomArrival());
 		Shopper newShopper = new Shopper(StoreSim.agenda.getCurrentTime(),
 				RandomItem());
 		// add to available checker's queue

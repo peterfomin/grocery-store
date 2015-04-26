@@ -1,11 +1,15 @@
 package grocerystore;
 
 public class CheckerEvent implements Event {
-	public CheckerEvent(int ID){
-		
-		
+	private Checker checker;
+
+	public CheckerEvent(int ID) {
+		checker = StoreSim.checkers[ID];
 	}
+
 	public void run() {
-		
+		if (checker.isBusy()) {
+			checker.checkout();
+		}
 	}
 }

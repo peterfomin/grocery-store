@@ -54,34 +54,37 @@ public class ShopperMaker implements Event {
 
 		return items;
 	}
-	
+
 	public static void addToChecker(Shopper shopper) {
 		int minsize = StoreSim.checkers[0].waitline.length();
 		Checker current = StoreSim.checkers[0];
 		boolean expressaccess = false;
-		if(shopper.getItems() <= 10){
+		if (shopper.getItems() <= 10) {
 			expressaccess = true;
 		}
+		// finds lowest queue checker, searches express checkers if applicable
 		for (int i = 0; i < StoreSim.checkers.length; i++) {
 			if (StoreSim.checkers[i].waitline.length() < minsize) {
-				
-				current = StoreSim.checkers[i];
+				if ((StoreSim.checkers[i].type != 2)
+						|| ((StoreSim.checkers[i].type != 2) && (expressaccess))) {
+					current = StoreSim.checkers[i];
+				}
 			}
 		}
 		boolean wake = false;
-		if(!current.busy){
+		if (!current.busy) {
 			wake = true;
 		}
-		//add the shopper to the proper checker queue
+		// add the shopper to the proper checker queue
 		current.addToWaitline(shopper);
-		//if the checker added to was idle, process next shopper
-		if(wake){
+		// if the checker added to was idle, process next shopper
+		if (wake) {
 			current.checkout();
 		}
 	}
 
 	public void run() {
-		//reschedule new entry of shopper into system using random interval
+		// reschedule new entry of shopper into system using random interval
 		StoreSim.agenda.add(new ShopperMaker(interval), RandomArrival());
 		Shopper newShopper = new Shopper(StoreSim.agenda.getCurrentTime(),
 				RandomItem());

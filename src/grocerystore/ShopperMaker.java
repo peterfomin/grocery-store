@@ -10,7 +10,7 @@ public class ShopperMaker implements Event {
 		this.interval = intval;
 	}
 
-	// change interval
+	// change interval for next arrival
 	private double RandomArrival() {
 		Random random = new Random();
 		int selection = random.nextInt(100);
@@ -54,13 +54,29 @@ public class ShopperMaker implements Event {
 
 		return items;
 	}
+	
+	public static void addToChecker(Shopper shopper) {
+		int minsize = StoreSim.checkers[0].waitline.length();
+		Checker current = StoreSim.checkers[0];
+		for (int i = 0; i < StoreSim.checkers.length; i++) {
+			if (StoreSim.checkers[i].waitline.length() < minsize) {
+				current = StoreSim.checkers[i];
+			}
+		}
+		//add the shopper to the proper checker queue
+		current.addToWaitline(shopper);
+		//if the checker added to is idle, wake it
+		if(!current.busy){
+		}
+	}
 
 	public void run() {
-		StoreSim.agenda.add(new ShopperMaker(interval), RandomArrival());
+		//reschedule new entry of shopper into system using random interval
+		StoreSim.agenda.add(new ShopperMaker(interval), StoreSim.agenda.getCurrentTime() + RandomArrival());
 		Shopper newShopper = new Shopper(StoreSim.agenda.getCurrentTime(),
 				RandomItem());
 		// add to available checker's queue
-		StoreSim.addToChecker(newShopper);
+		addToChecker(newShopper);
 	}
 
 }

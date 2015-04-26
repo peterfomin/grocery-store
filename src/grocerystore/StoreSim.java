@@ -11,17 +11,4 @@ public class StoreSim {
 
 	}
 
-	public static void addToChecker(Shopper shopper) {
-		int minsize = checkers[0].waitline.length();
-		Checker current = checkers[0];
-		for (int i = 0; i < checkers.length; i++) {
-			if (checkers[i].waitline.length() < minsize) {
-				current = checkers[i];
-			}
-		}
-
-		current.addToWaitline(shopper);
-		if(!current.busy){
-		}
-	}
 }

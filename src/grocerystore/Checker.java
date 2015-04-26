@@ -23,7 +23,7 @@ public class Checker {
 		busy = !busy;
 	}
 
-	public boolean isBusy() {
+	public boolean hasNext() {
 		if (waitline.length() > 0) {
 			return true;
 		} else {
@@ -38,8 +38,13 @@ public class Checker {
 	public double getEmployeeCheckTime(int items) {
 		return items * 5;
 	}
+	
+	public boolean isBusy(){
+		return busy;
+	}
 
 	public void checkout() {
+		this.busy = true;
 		Shopper shopper = (Shopper) waitline.remove();
 		if (shopper != null) {
 			int items = shopper.getItems();

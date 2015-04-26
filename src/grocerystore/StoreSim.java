@@ -27,7 +27,26 @@ public class StoreSim {
 		int express = 2;
 		boolean employeeBagging = true;
 
+		
+		
 		// create my checkers
+		createCheckers(regular, express, employeeBagging);
+		
+		
+		// start arrival mechanism
+
+		agenda.add(new ShopperMaker(rate), 10);
+
+		while (agenda.getCurrentTime() <= 15000) {
+			Event event = agenda.remove();
+			System.out.println(agenda.getCurrentTime());
+			System.out.println(event);
+			event.run();
+		}
+	}
+
+	static void createCheckers(int regular, int express,
+			boolean employeeBagging) {
 		checkers = new Checker[regular + express];
 
 		for (int i = 0; i < express; i++) {
@@ -36,16 +55,6 @@ public class StoreSim {
 
 		for (int i = express; i < regular + express; i++) {
 			checkers[i] = new Checker(i, false, employeeBagging);
-		}
-
-		// start arrival mechanism
-
-		agenda.add(new ShopperMaker(rate), 10);
-
-		while (agenda.getCurrentTime() <= 15000) {
-			Event event = agenda.remove();
-			System.out.println(event);
-			event.run();
 		}
 	}
 

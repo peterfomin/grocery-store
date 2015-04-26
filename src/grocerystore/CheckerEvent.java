@@ -8,8 +8,16 @@ public class CheckerEvent implements Event {
 	}
 
 	public void run() {
-		if (checker.isBusy()) {
+		if (checker.hasNext()) {
 			checker.checkout();
+		}else{
+			checker.busy = false;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return String.format("CheckerEvent [checker=%s]", checker.ID);
+	}
+	
 }

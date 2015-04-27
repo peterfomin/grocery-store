@@ -25,7 +25,7 @@ public class StoreSim {
 //		boolean employee = Boolean.parseBoolean(args[3]);
 		
 		int rate = 30;
-		int regular = 5;
+		int regular = 8;
 		int express = 2;
 		boolean employeeBagging = true;
 

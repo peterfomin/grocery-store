@@ -73,7 +73,11 @@ public class ShopperMaker implements Event {
 		current.addToWaitline(shopper);
 		// if the checker added to was idle, process next shopper
 		if (!current.isBusy()) {
-			Statistics.updateIdleTimeStats(StoreSim.agenda.getCurrentTime(), current.ID);
+			for(int i = 0; i < StoreSim.checkers.length; i++){
+				if(!StoreSim.checkers[i].isBusy()){
+					Statistics.updateIdleTimeStats(StoreSim.agenda.getCurrentTime(), StoreSim.checkers[i].ID);
+				}
+			}
 			current.checkout();
 		}
 

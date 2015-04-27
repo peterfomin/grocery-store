@@ -26,8 +26,8 @@ public class StoreSim {
 		
 		int rate = 30;
 		int regular = 8;
-		int express = 2;
-		boolean employeeBagging = true;
+		int express = 0;
+		boolean employeeBagging = false;
 
 		
 		

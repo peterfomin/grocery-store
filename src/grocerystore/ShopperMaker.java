@@ -1,5 +1,7 @@
 package grocerystore;
 
+
+
 import java.util.Random;
 
 public class ShopperMaker implements Event {
@@ -71,6 +73,7 @@ public class ShopperMaker implements Event {
 		current.addToWaitline(shopper);
 		// if the checker added to was idle, process next shopper
 		if (!current.isBusy()) {
+			Statistics.updateIdleTimeStats(StoreSim.agenda.getCurrentTime(), current.ID);
 			current.checkout();
 		}
 

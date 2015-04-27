@@ -9,6 +9,7 @@ public class CheckerEvent implements Event {
 
 	public void run() {
 		if (checker.hasNext()) {
+			Statistics.updateBusyTimeStats(StoreSim.agenda.getCurrentTime(), checker.ID);
 			checker.checkout();
 		} else {
 			checker.busy = false;

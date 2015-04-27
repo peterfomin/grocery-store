@@ -43,6 +43,8 @@ public class StoreSim {
 			System.out.println(event.toString());
 			event.run();
 		}
+		
+		Statistics.print();
 	}
 
 	static void createCheckers(int regular, int express,

@@ -54,7 +54,7 @@ public class Checker {
 			}else{
 				time = getShopperCheckTime(items);
 			}
-
+			Statistics.updateWaitTimeStats(StoreSim.agenda.getCurrentTime(), shopper.getArrivalTime());
 			StoreSim.agenda.add(new CheckerEvent(ID), time);
 		}
 	}

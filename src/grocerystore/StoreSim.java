@@ -1,5 +1,7 @@
 package grocerystore;
 
+import java.io.IOException;
+
 
 public class StoreSim {
 	static PQ agenda = new PQ();
@@ -11,7 +13,7 @@ public class StoreSim {
 	// arg 2: number of express lanes (int)
 	// arg 2 : employee bagging (boolean)
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws IOException {
 
 		// setup system config
 //		if (args.length < 4) {
@@ -45,6 +47,7 @@ public class StoreSim {
 		}
 		
 		Statistics.print();
+		Statistics.saveStats();
 	}
 
 	static void createCheckers(int regular, int express,

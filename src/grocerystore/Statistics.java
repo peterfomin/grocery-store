@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Statistics {
+	//class variables
 	private static double averagearrivaltime;
 	private static int arrivals;
 	private static double[] busyTime = new double[StoreSim.checkers.length];

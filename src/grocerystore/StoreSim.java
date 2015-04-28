@@ -45,6 +45,11 @@ public class StoreSim {
 			System.out.println(event.toString());
 			event.run();
 		}
+		
+		for(int i = 0; i < checkers.length; i++){
+			Statistics.updateIdleTimeStats(StoreSim.agenda.getCurrentTime(), i);
+		}
+		
 		Statistics.print();
 		Statistics.saveStats();
 	}

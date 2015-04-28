@@ -46,6 +46,10 @@ public class Checker {
 	public void checkout() {
 		this.busy = true;
 		Shopper shopper = (Shopper) waitline.remove();
+		//shopper removed from queue stat update
+		Statistics.updateCheckoutTime(StoreSim.agenda.getCurrentTime(), shopper.getArrivalTime());
+		Statistics.updateQueueStats(StoreSim.agenda.getCurrentTime(),this.waitline.length(), this.ID);
+		
 		if (shopper != null) {
 			int items = shopper.getItems();
 			double time = 0;

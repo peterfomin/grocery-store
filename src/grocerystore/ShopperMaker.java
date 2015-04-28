@@ -1,7 +1,5 @@
 package grocerystore;
 
-
-
 import java.util.Random;
 
 public class ShopperMaker implements Event {
@@ -51,7 +49,7 @@ public class ShopperMaker implements Event {
 	}
 
 	public void addToChecker(Shopper shopper) {
-		int minsize = StoreSim.checkers[0].waitline.length();
+		int minsize = 99999999;
 		Checker current = StoreSim.checkers[0];
 		boolean expressaccess = false;
 		if (shopper.getItems() <= 10) {
@@ -71,9 +69,13 @@ public class ShopperMaker implements Event {
 
 		// add the shopper to the proper checker queue
 		current.addToWaitline(shopper);
+		// placed in queue stat
+		Statistics.updateQueueStats(StoreSim.agenda.getCurrentTime(),
+				current.waitline.length(), current.ID);
 		// if the checker added to was idle, process next shopper
 		if (!current.isBusy()) {
-			Statistics.updateIdleTimeStats(StoreSim.agenda.getCurrentTime(), current.ID);
+			Statistics.updateIdleTimeStats(StoreSim.agenda.getCurrentTime(),
+					current.ID);
 			current.checkout();
 		}
 

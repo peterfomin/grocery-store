@@ -13,8 +13,41 @@ public class Statistics {
 	private static double[] idleTime = new double[StoreSim.checkers.length];
 	private static double averageIdleTime;
 	private static double averageBusyTime;
+	private static double[] maxWaitlineLength = new double[StoreSim.checkers.length];
+	private static double[] averageWaitlineLength = new double[StoreSim.checkers.length];
+	private static double totalSystemTime;
+	private static double[] oldWaitlineLength = new double[StoreSim.checkers.length];
+	private static double[] lastWaitlineUpdateTime = new double[StoreSim.checkers.length];
+	private static double averageCheckoutTime;
+	private static double maxCheckoutTime;
 
-	// private int
+	public static void updateArrivalStats(double time) {
+
+	}
+
+	public static void updateCheckoutTime(double time, double enterTime) {
+		double wait = time - enterTime;
+		if (wait > maxCheckoutTime) {
+			maxCheckoutTime = wait;
+		}
+		averageCheckoutTime += wait;
+		arrivals++;
+	}
+
+	public static void updateQueueStats(double time, int waitlinelength, int ID) {
+
+		if (waitlinelength > maxWaitlineLength[ID]) {
+			maxWaitlineLength[ID] = waitlinelength;
+		}
+		averageWaitlineLength[ID] += oldWaitlineLength[ID]
+				* (time - lastWaitlineUpdateTime[ID]);
+		if (time > totalSystemTime) {
+			totalSystemTime = time;
+		}
+		// totalSystemTime += time - lastWaitlineUpdateTime[ID];
+		lastWaitlineUpdateTime[ID] = time;
+		oldWaitlineLength[ID] = waitlinelength;
+	}
 
 	public static void updateBusyTimeStats(double time, int ID) {
 
@@ -29,25 +62,47 @@ public class Statistics {
 	}
 
 	public static void print() {
+		System.out.println("Total System Time: " + totalSystemTime);
+		System.out.println("Average Waiting Time: "
+				+ (averageCheckoutTime));
+		System.out.println("Average Busy Time: " + averageBusyTime);
+		System.out.println("Average Idle: " + averageIdleTime);
+		System.out.println("Average Waitline Length: ");
+		System.out.println("Maximum Waitline Length: "
+				+ getArrayMaximum(maxWaitlineLength));
 		System.out.println("--------------------------------------");
 		for (int i = 0; i < StoreSim.checkers.length; i++) {
 			System.out.println("Checker: " + i);
 			System.out.println("IdleTime: " + idleTime[i]);
 			System.out.println("BusyTime: " + busyTime[i]);
-
 		}
-
+		System.out.println("--------------------------------------");
+		for (int i = 0; i < StoreSim.checkers.length; i++) {
+			System.out.println("Checker: " + i);
+			System.out.println("Max Waitline Length: " + maxWaitlineLength[i]);
+			System.out.println("Average Waitline Length: "
+					+ (averageWaitlineLength[i] / totalSystemTime));
+		}
 	}
 
-	public static double getArrayAverage(double[] data) {
-		double sum = 0;
-		for (int i = 0; i < data.length; i++) {
-			sum = sum + data[i];
+	public static double getArrayMaximum(double[] array) {
+		double max = 0;
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] > max) {
+				max = array[i];
+			}
 		}
-		return (double) sum / data.length;
+		return (double) max;
 	}
-	
-	
+
+	public static double getArrayAverage(double[] array) {
+		double total = 0;
+		for (int i = 0; i < array.length; i++) {
+			total = total + array[i];
+		}
+		return (double) total / array.length;
+	}
+
 	private static final String STATS_FILE = "data/statistic.csv";
 
 	public static void saveStats() throws IOException {

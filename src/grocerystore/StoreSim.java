@@ -50,6 +50,7 @@ public class StoreSim {
 			Statistics.updateIdleTimeStats(StoreSim.agenda.getCurrentTime(), i);
 		}
 		
+		Statistics.calculateAverageWaitlineLength();
 		Statistics.print();
 		Statistics.saveStats();
 	}

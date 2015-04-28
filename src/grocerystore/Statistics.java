@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Statistics {
-	//class variables
+	// class variables
 	private static double averagearrivaltime;
 	private static int arrivals;
 	private static double[] busyTime = new double[StoreSim.checkers.length];
@@ -20,12 +20,13 @@ public class Statistics {
 	private static double averageCheckoutTime;
 	private static double maxCheckoutTime;
 
-	public static void calculateAverageWaitlineLength(){
-		for(int i = 0; i < averageWaitlineLength.length; i++){
-			averageWaitlineLength[i] = averageWaitlineLength[i] / totalSystemTime;
+	public static void calculateAverageWaitlineLength() {
+		for (int i = 0; i < averageWaitlineLength.length; i++) {
+			averageWaitlineLength[i] = averageWaitlineLength[i]
+					/ totalSystemTime;
 		}
 	}
-	
+
 	public static void updateCheckoutTime(double time, double enterTime) {
 		double wait = time - enterTime;
 		if (wait > maxCheckoutTime) {
@@ -64,11 +65,15 @@ public class Statistics {
 
 	public static void print() {
 		System.out.println("Total System Time: " + totalSystemTime);
+		System.out.println("Average Waiting Time: " + averageCheckoutTime
+				/ arrivals);
 		System.out.println("Average Idle Time: " + getArrayAverage(idleTime));
-		System.out.println("Maximum Waitline Length: " + getArrayMaximum(maxWaitlineLength));
-		System.out.println("Average Waiting Time: " + averageCheckoutTime / arrivals);
-		System.out.println("Average Waitline Length: " + getArrayAverage(averageWaitlineLength));
-				//+ getArrayMaximum(maxWaitlineLength));
+		System.out.println("Average Waitline Length: "
+				+ getArrayAverage(averageWaitlineLength));
+		System.out.println("Maximum Waitline Length: "
+				+ getArrayMaximum(maxWaitlineLength));
+
+		// + getArrayMaximum(maxWaitlineLength));
 		System.out.println("--------------------------------------");
 		for (int i = 0; i < StoreSim.checkers.length; i++) {
 			System.out.println("Checker: " + i);
@@ -110,8 +115,10 @@ public class Statistics {
 		try {
 			out = new PrintWriter(new BufferedWriter(new FileWriter(STATS_FILE,
 					true)));
-			out.println(String.format("%.2f, %.2f", getArrayAverage(busyTime),
-					getArrayAverage(idleTime)));
+			out.println(String.format("%.2f, %.2f, %.2f, %.2f",
+					averageCheckoutTime / arrivals, getArrayAverage(idleTime),
+					getArrayAverage(averageWaitlineLength),
+					getArrayMaximum(maxWaitlineLength)));
 		} finally {
 			if (out != null) {
 				out.close();

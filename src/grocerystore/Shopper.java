@@ -2,8 +2,19 @@ package grocerystore;
 
 //new comment peter local
 
+/**
+ * 
+ * @author Peter Fomin and Zach Gartner
+ * 
+ *         Inspired By Dovolis Car Wash Simulation
+ * 
+ *         Class Analog: Car
+ *
+ */
+
+// Data utility for representing individual shoppers in the system
 public class Shopper {
-	//random comment
+	// Data values
 	private double arrivaltime = 2;
 	private int items = 0;
 
@@ -11,18 +22,21 @@ public class Shopper {
 		this.arrivaltime = time;
 		this.items = items;
 
-		
 	}
-	public void setArrivalTime(double arrivaltime){
+
+	public void setArrivalTime(double arrivaltime) {
 		this.arrivaltime = arrivaltime;
 	}
-	public void setItems(int items){
+
+	public void setItems(int items) {
 		this.items = items;
 	}
-	public double getArrivalTime(){
+
+	public double getArrivalTime() {
 		return this.arrivaltime;
 	}
-	public int getItems(){
+
+	public int getItems() {
 		return this.items;
 	}
 }

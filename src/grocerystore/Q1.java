@@ -1,5 +1,15 @@
 package grocerystore;
 
+/**
+ * 
+ * @author Peter Fomin and Zach Gartner
+ * 
+ * Inspired By Dovolis Car Wash Simulation
+ * 
+ * **Class Re-Used from Example**
+ *
+ */
+
 public class Q1 implements Q {
 	// constructor
 

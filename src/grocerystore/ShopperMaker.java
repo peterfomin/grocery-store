@@ -2,6 +2,17 @@ package grocerystore;
 
 import java.util.Random;
 
+/**
+ * 
+ * @author Peter Fomin and Zach Gartner
+ * 
+ *         Inspired By Dovolis Car Wash Simulation
+ * 
+ *         Class Analog: CarMaker
+ *
+ */
+
+// Acts as event which adds a new shopper to the system
 public class ShopperMaker implements Event {
 
 	public double interval;
@@ -34,6 +45,7 @@ public class ShopperMaker implements Event {
 		}
 	}
 
+	// use distribution for random item selection
 	private int randomItem() {
 		int[] itemrange = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 10, 20,
 				30, 40, 50, 60, 70, 80, 10, 20, 30, 40, 50, 60, 70, 20, 30, 40,
@@ -48,6 +60,7 @@ public class ShopperMaker implements Event {
 		return items;
 	}
 
+	// Assigns shopper to eligible checker
 	public void addToChecker(Shopper shopper) {
 		int minsize = 99999999;
 		Checker current = StoreSim.checkers[0];
@@ -69,7 +82,7 @@ public class ShopperMaker implements Event {
 
 		// add the shopper to the proper checker queue
 		current.addToWaitline(shopper);
-		// placed in queue stat
+		// placed in queue statistic
 		Statistics.updateQueueStats(StoreSim.agenda.getCurrentTime(),
 				current.waitline.length(), current.ID);
 		// if the checker added to was idle, process next shopper
@@ -91,6 +104,7 @@ public class ShopperMaker implements Event {
 		System.out.println("Added to Checker: " + this.ID);
 	}
 
+	// event printing
 	@Override
 	public String toString() {
 		return String.format(super.toString() + "[interval=%s, ID=%s]",

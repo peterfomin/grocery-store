@@ -5,9 +5,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 
+ * @author Peter Fomin and Zach Gartner
+ * 
+ *         Inspired By Dovolis Car Wash Simulation
+ * 
+ *         Class Analog: Stat
+ *
+ */
+
+// All statistics tracking is done here
 public class Statistics {
 	// class variables
-	private static double averagearrivaltime;
 	private static int arrivals;
 	private static double[] busyTime = new double[StoreSim.checkers.length];
 	private static double[] lastUpdateTime = new double[StoreSim.checkers.length];
@@ -19,6 +29,11 @@ public class Statistics {
 	private static double[] lastWaitlineUpdateTime = new double[StoreSim.checkers.length];
 	private static double averageCheckoutTime;
 	private static double maxCheckoutTime;
+
+	// All statistics are calculated per checker and then calculated for global
+	// trial results on simulation completion. Methods use logic adapted from
+	// CarWash
+	// statistics calculations.
 
 	public static void calculateAverageWaitlineLength() {
 		for (int i = 0; i < averageWaitlineLength.length; i++) {
@@ -46,7 +61,6 @@ public class Statistics {
 		if (time > totalSystemTime) {
 			totalSystemTime = time;
 		}
-		// totalSystemTime += time - lastWaitlineUpdateTime[ID];
 		lastWaitlineUpdateTime[ID] = time;
 		oldWaitlineLength[ID] = waitlinelength;
 	}
@@ -63,6 +77,7 @@ public class Statistics {
 		lastUpdateTime[ID] = time;
 	}
 
+	// prints some global and individual checker and shopper stats
 	public static void print() {
 		System.out.println("Total System Time: " + totalSystemTime);
 		System.out.println("Average Waiting Time: " + averageCheckoutTime
@@ -73,7 +88,6 @@ public class Statistics {
 		System.out.println("Maximum Waitline Length: "
 				+ getArrayMaximum(maxWaitlineLength));
 
-		// + getArrayMaximum(maxWaitlineLength));
 		System.out.println("--------------------------------------");
 		for (int i = 0; i < StoreSim.checkers.length; i++) {
 			System.out.println("Checker: " + i);
@@ -89,6 +103,7 @@ public class Statistics {
 		}
 	}
 
+	// array maximum function
 	public static double getArrayMaximum(double[] array) {
 		double max = 0;
 		for (int i = 0; i < array.length; i++) {
@@ -96,35 +111,37 @@ public class Statistics {
 				max = array[i];
 			}
 		}
-		return (double) max;
+		return max;
 	}
 
+	// Array average function
 	public static double getArrayAverage(double[] array) {
 		double total = 0;
 		for (int i = 0; i < array.length; i++) {
 			total = total + array[i];
 		}
-		return (double) total / array.length;
+		return total / array.length;
 	}
 
+	// Assigns Stats File
 	private static final String STATS_FILE = "data/statistic.csv";
 
+	// Writes to Stats file
 	public static void saveStats() throws IOException {
 
-		PrintWriter out = null;
+		PrintWriter fileWriter = null;
 		try {
-			out = new PrintWriter(new BufferedWriter(new FileWriter(STATS_FILE,
-					true)));
-			out.println(String.format("%.2f, %.2f, %.2f, %.2f",
+			fileWriter = new PrintWriter(new BufferedWriter(new FileWriter(
+					STATS_FILE, true)));
+			fileWriter.println(String.format("%.2f, %.2f, %.2f, %.2f",
 					averageCheckoutTime / arrivals, getArrayAverage(idleTime),
 					getArrayAverage(averageWaitlineLength),
 					getArrayMaximum(maxWaitlineLength)));
 		} finally {
-			if (out != null) {
-				out.close();
+			if (fileWriter != null) {
+				fileWriter.close();
 			}
 		}
 
 	}
-
 }

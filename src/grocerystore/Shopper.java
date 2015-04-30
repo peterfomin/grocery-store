@@ -4,7 +4,7 @@ package grocerystore;
 
 /**
  * 
- * @author Peter Fomin and Zach Gartner
+ * @author Peter Fomin 4603194 and Zach Gartner 4643160
  * 
  *         Inspired By Dovolis Car Wash Simulation
  * 

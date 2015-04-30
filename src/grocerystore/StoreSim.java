@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  * 
- * @author Peter Fomin and Zach Gartner
+ * @author Peter Fomin 4603194 and Zach Gartner 4643160
  * 
  *         Inspired By Dovolis Car Wash Simulation
  * 
@@ -37,10 +37,10 @@ public class StoreSim {
 		// int express = Integer.parseInt(args[2]);
 		// boolean employee = Boolean.parseBoolean(args[3]);
 
-		int rate = 40;
-		int regular = 9;
-		int express = 1;
-		boolean employeeBagging = false;
+		int rate = 30;
+		int regular = 8;
+		int express = 0;
+		boolean employeeBagging = true;
 
 		// create the configured checkers
 		createCheckers(regular, express, employeeBagging);
